@@ -1,0 +1,9 @@
+:root {
+  --button-background-color: var(--bg-color, var(--def-bg-color));
+  --button-background-color-hover: var(--bg-light-color, var(--def-bg-light-color));
+
+  --button-color: var(--text-color, var(--def-text-color));
+  --button-border-color: var(--border-color, var(--def-border-color));
+  --button-font-size: var(--fonts-size, var(--def-font-size));
+  --button-border-radiues: var(--border-radius, var(--def-border-radius));
+}
