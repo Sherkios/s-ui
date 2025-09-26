@@ -1,9 +1,14 @@
 :root {
   --button-background-color: var(--bg-color, var(--def-bg-color));
   --button-background-color-hover: var(--bg-light-color, var(--def-bg-light-color));
+  --button-background-color-disabled: var(--bg-dark-color, var(--def-bg-dark-color));
 
   --button-color: var(--text-color, var(--def-text-color));
   --button-border-color: var(--border-color, var(--def-border-color));
+
   --button-font-size: var(--fonts-size, var(--def-font-size));
+  --button-font-size-small: var(--fonts-size-small, var(--def-font-size-small));
+  --button-font-size-large: var(--fonts-size-large, var(--def-font-size-large));
+
   --button-border-radiues: var(--border-radius, var(--def-border-radius));
 }

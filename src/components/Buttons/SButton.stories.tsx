@@ -17,3 +17,30 @@ export const Default: Story = {
   }),
   args: {},
 }
+
+export const Disabled: story = {
+  render: (args) => ({
+    components: { SButton },
+    setup: () => ({ args }),
+    template: '<SButton disabled>Button</SButton>',
+  }),
+  args: {},
+}
+
+export const Large: Story = {
+  render: (args) => ({
+    components: { SButton },
+    setup: () => ({ args }),
+    template: '<SButton size="large">Button</SButton>',
+  }),
+  args: {},
+}
+
+export const Small: Story = {
+  render: (args) => ({
+    components: { SButton },
+    setup: () => ({ args }),
+    template: '<SButton size="small">Button</SButton>',
+  }),
+  args: {},
+}

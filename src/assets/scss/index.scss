@@ -26,6 +26,9 @@
 
   // Размеры
   --font-size
+  --font-size-small
+  --font-size-large
+
   --border-radius
 
 */
@@ -51,7 +54,10 @@
   --def-border-muted-color: oklch(0.7 0.04 214);
 
   --def-font-size: 1.6rem;
-  --def-border-radius: 0.4rem;
+  --def-font-size-small: 1.3rem;
+  --def-font-size-large: 1.8rem;
+
+  --def-border-radius: 0.8rem;
 }
 
 // Темная цветовая схема
