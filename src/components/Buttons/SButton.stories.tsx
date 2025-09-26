@@ -23,25 +23,31 @@ export const Disabled: story = {
   render: (args) => ({
     components: { SButton },
     setup: () => ({ args }),
-    template: '<SButton disabled>Button</SButton>',
+    template: '<SButton v-bind="args">Button</SButton>',
   }),
-  args: {},
+  args: {
+    disabled: true,
+  },
 }
 
 export const Large: Story = {
   render: (args) => ({
     components: { SButton },
     setup: () => ({ args }),
-    template: '<SButton size="large">Button</SButton>',
+    template: '<SButton v-bind="args">Button</SButton>',
   }),
-  args: {},
+  args: {
+    size: 'large',
+  },
 }
 
 export const Small: Story = {
   render: (args) => ({
     components: { SButton },
     setup: () => ({ args }),
-    template: '<SButton size="small">Button</SButton>',
+    template: '<SButton v-bind="args">Button</SButton>',
   }),
-  args: {},
+  args: {
+    size: 'small',
+  },
 }
