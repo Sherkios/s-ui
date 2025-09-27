@@ -9,6 +9,12 @@ const meta = {
     isError: false,
     isWarning: false,
     message: '',
+    class: 'input',
+    disabled: false,
+    type: 'text',
+    placeholder: 'Введите текст',
+    min: -100,
+    max: 100,
   },
 } satisfies Meta<typeof SInput>
 
@@ -37,5 +43,22 @@ export const WithError: Story = {
   }),
   args: {
     message: 'error message',
+    isError: true,
+  },
+}
+
+export const Number: Story = {
+  render: (args) => ({
+    components: { SInput },
+    setup: () => ({ args }),
+    template: '<SInput v-bind="args" @keydown:up="handleKeydownUp"/>',
+    methods: {
+      handleKeydownUp(value, event: KeyboardEvent): void {
+        console.log(value)
+      },
+    },
+  }),
+  args: {
+    type: 'number',
   },
 }

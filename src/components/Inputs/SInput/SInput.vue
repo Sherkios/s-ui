@@ -1,6 +1,6 @@
 <template>
   <!-- Класс навешиваем корню компонента -->
-  <label class="s-input" :class="[$attrs.class, labelClass]">
+  <label class="s-input" :class="[labelClass]">
     <p v-if="$slots['title']" class="s-input__title">
       <slot name="title" />
     </p>
@@ -9,12 +9,16 @@
       <!-- Назначаем все переданные атрибуты в инпут кроме класса -->
       <input
         ref="input"
-        v-bind="props"
+        v-bind="{ ...props, ...$attrs }"
         v-model="model"
         class="s-input__input"
-        :class="undefined"
-        @input="(event) => handleInput()"
+        :type="typeInput"
+        @input="handleInput"
         @blur="handleBlur"
+        @focus="handleFocus"
+        @keydown.enter="handleKeydownEnter"
+        @keydown.up="handleKeydownUp"
+        @keydown.down="handleKeydownDown"
       />
 
       <Transition name="fade">
@@ -28,17 +32,19 @@
 
 <script setup lang="ts">
 import { ISInputEmits, ISInputProps } from '@/components/Inputs/SInput/interface'
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue'
+import { computed, InputHTMLAttributes, nextTick, ref, useAttrs, useTemplateRef, watch } from 'vue'
 
 defineOptions({
   name: 'SInput',
   // Отключаем наследование атрибутов
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ISInputProps>(), {
   color: 'primary',
+  type: 'text',
 })
+
+const attrs: InputHTMLAttributes = useAttrs()
 
 const emits = defineEmits<ISInputEmits>()
 
@@ -59,6 +65,14 @@ const isAttention = ref<boolean>(Boolean(props.isError || props.isWarning))
 // Флаг состояния необходимости показывания сообщения
 const isShowMessage = ref<boolean>(Boolean(props.message))
 
+const typeInput = computed(() => {
+  if (props.type === 'number') {
+    return 'text'
+  }
+
+  return props.type
+})
+
 const labelClass = computed(() => [
   {
     's-input_error': props.isError && isAttention.value,
@@ -74,20 +88,151 @@ const messageClass = computed(() => [
 ])
 
 /**
+ * Вызывает emit при изменение значения
+ */
+const handleChange = (): void => {
+  emits('change', model.value)
+}
+
+/**
  * Обрабатывает ввод символов
  * @param value
  */
 const handleInput = async (event: Event): Promise<void> => {
+  if (props.type === 'number') validateNumberInput(event)
+
   isAttention.value = false
 
   // Дожидаемся изменеий в html
   await nextTick()
 
   emits('input', model.value, event as InputEvent)
+  handleChange()
 }
 
-const handleBlur = (): void => {
+const handleFocus = (event: FocusEvent): void => {
+  emits('focus', event)
+}
+
+/**
+ * Обрабатывает событие потери фокуса
+ */
+const handleBlur = (event: FocusEvent): void => {
   if (!isAttention.value) isShowMessage.value = false
+
+  emits('blur', event)
+}
+
+/**
+ * Обрабатывает событие нажатия кнопки Enter при фокусировки на инпуте
+ * @param event
+ */
+const handleKeydownEnter = (event: KeyboardEvent): void => {
+  emits('keydown:enter', event)
+}
+
+/**
+ * Обрабатывает нажатие на стрелку вверх
+ * @param event
+ */
+const handleKeydownUp = async (event: KeyboardEvent): Promise<void> => {
+  // если не число, то пропускаем
+  if (props.type !== 'number') return
+  event.preventDefault()
+
+  // Получаем значение
+  const target = event.target as HTMLInputElement
+  const value = target.value
+
+  // получаем число из строки
+  const number = Number(value)
+
+  // Получаем число в рамках ограничений
+  const newNumberValue = validateMinMax(number + 1)
+
+  target.value = String(newNumberValue)
+
+  model.value = target.value
+
+  await nextTick(() => {
+    setApostropheEnd()
+  })
+
+  emits('keydown:up', model.value, event)
+  handleChange()
+}
+
+/**
+ * Обрабатывает нажатие на стрелку вниз
+ * @param event
+ */
+const handleKeydownDown = async (event: KeyboardEvent): Promise<void> => {
+  // если не число, то пропускаем
+  if (props.type !== 'number') return
+  // Получаем значение
+  const target = event.target as HTMLInputElement
+  const value = target.value
+
+  // получаем число из строки
+  const number = Number(value)
+
+  // Получаем число в рамках ограничений
+  const newNumberValue = validateMinMax(number - 1)
+
+  target.value = String(newNumberValue)
+  model.value = target.value
+
+  await nextTick()
+  emits('keydown:down', model.value, event)
+  handleChange()
+}
+
+/**
+ * Валидирует ввод числового значения в input
+ * @param event
+ */
+const validateNumberInput = (event: Event): void => {
+  const target = event.target as HTMLInputElement
+  const value = target.value
+
+  target.value = value
+    // Отсекаем все символы не являющиеся числом, "-" и "."
+    .replace(/[^\d.-]/g, '')
+    // Проверяем "-"" стоит первым или нет, если нет то убираем
+    .replace(/(?!^)-/g, '')
+    // Находим "." и любой сиволм после нее, находим дополнительную точку и убираем ее если есть
+    .replace(/(\..*?)\./g, '$1')
+
+  target.value = String(validateMinMax(target.value))
+  model.value = target.value
+}
+
+/**
+ * Возвращает значение в диапозаное заданных ограничений min, max
+ * @param value
+ */
+const validateMinMax = (value: string | number): number => {
+  let number = 0
+  if (typeof value === 'string') {
+    number = Number(value)
+  } else {
+    number = value
+  }
+
+  return Math.min(
+    Math.max(number, attrs?.min ? +attrs.min : -Infinity),
+    attrs?.max ? +attrs.max : Infinity,
+  )
+}
+
+/**
+ * Устанавливает курсор в конец строки
+ */
+const setApostropheEnd = async (): Promise<void> => {
+  if (input.value) {
+    input.value.focus()
+    input.value.setSelectionRange(input.value.value.length + 1, input.value.value.length)
+  }
 }
 
 // Отслеживаем изменения состояния и меняем состояние сообщения для изменения стилей
@@ -119,6 +264,10 @@ watch(
     }
   },
 )
+
+defineExpose({
+  input,
+})
 </script>
 
 <style lang="scss">
@@ -137,8 +286,6 @@ watch(
 
   &__wrapper {
     position: relative;
-
-    padding-bottom: var(--input-message-font-size);
   }
 
   &__input {
@@ -168,7 +315,7 @@ watch(
   }
 
   &__message {
-    top: calc(100% - var(--input-message-font-size));
+    top: 100%;
     position: absolute;
     font-size: var(--input-message-font-size);
 
