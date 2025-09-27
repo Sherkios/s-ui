@@ -1,10 +1,24 @@
 :root {
   --button-background-color: var(--bg-color, var(--def-bg-color));
   --button-background-color-hover: var(--bg-light-color, var(--def-bg-light-color));
-  --button-background-color-disabled: var(--bg-dark-color, var(--def-bg-dark-color));
+
+  --button-background-color-primary: var(--primary-color, var(--def-primary-color));
+  --button-background-color-primary-hover: var(--primary-color-hover, var(--def-primary-color-hover));
+
+  --button-background-color-secondary: var(--secondary-color, var(--def-secondary-color));
+  --button-background-color-secondary-hover: var(--secondary-color-hover, var(--def-secondary-color-hover));
+
+  --button-background-color-danger: var(--danger-color, var(--def-danger-color));
+  --button-background-color-danger-hover: var(--danger-color-hover, var(--def-danger-color-hover));
+
+  --button-background-color-success: var(--success-color, var(--def-success-color));
+  --button-background-color-success-hover: var(--success-color-hover, var(--def-success-color-hover));
 
   --button-color: var(--text-color, var(--def-text-color));
+  --button-color-primary: var(--bg-color, var(--def-bg-color));
+
   --button-border-color: var(--border-color, var(--def-border-color));
+  --button-box-shadow-color: var(--border-color, var(--def-border-color));
 
   --button-font-size: var(--fonts-size, var(--def-font-size));
   --button-font-size-small: var(--fonts-size-small, var(--def-font-size-small));
