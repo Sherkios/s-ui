@@ -1,4 +1,4 @@
-import SButton from '@/components/Buttons/SButton.vue'
+import SButton from '@/components/Buttons/SButton/SButton.vue'
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import threeColorsDecorator from '@/decorators/three-colors'
 const meta = {

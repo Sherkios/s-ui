@@ -1,11 +1,13 @@
+@use "./reset";
+@use "./Transitions/fade";
 @use "./Buttons/button";
+@use "./Inputs/input";
 
 // Использовать следующие переменные как корневые
 // Использовать напрямую данные переменные нельзя.
 // Необходимо для каждого компонента создать свой файл scss, и описать переменные для него используя только переменные описанные ниже, с подстановкой значений по умолчанию
 // Пример
 // --button-color: var(--primary-color, var(--def-primary-color));
-
 /**
   // Цвета
   --primary-color
@@ -38,38 +40,38 @@
   --border-radius
 
 */
-
 // Ниже идут значения по умолчанию
-
-// Светлая цветовая схема
+// Светлая цветовая схема:
 :root {
   --def-primary-color: oklch(0.4 0.1 214);
   --def-primary-color-hover: oklch(0.4 0.1 214 / 0.8);
+
   --def-secondary-color: oklch(0.4 0.1 34);
   --def-secondary-color-hover: oklch(0.4 0.1 34 / 0.8);
+
   --def-danger-color: oklch(0.6 0.14 23);
   --def-danger-color-hover: oklch(0.6 0.14 23 / 0.8);
-  --def-warning-color: oklch(0.5 0.05 100);
-  --def-warning-color-hover: oklch(0.5 0.05 100 / 0.8);
+
+  --def-warning-color: oklch(0.6 0.14 100);
+  --def-warning-color-hover: oklch(0.6 0.14 100 / 0.8);
+
   --def-success-color: oklch(0.5 0.05 160);
   --def-success-color-hover: oklch(0.5 0.05 160 / 0.8);
+
   --def-info-color: oklch(0.5 0.05 260);
   --def-info-color-hover: oklch(0.5 0.05 260 / 0.8);
 
   --def-bg-dark-color: oklch(0.92 0.02 214);
   --def-bg-color: oklch(0.96 0.02 214);
+
   --def-bg-light-color: oklch(1 0.02 214);
+  --def-bg-light-color-hover: oklch(0.98 0.02 214);
+
   --def-text-color: oklch(0.15 0.04 214);
   --def-text-muted-color: oklch(0.4 0.04 214);
   --def-highlight-color: oklch(1 0.04 214);
   --def-border-color: oklch(0.6 0.04 214);
   --def-border-muted-color: oklch(0.7 0.04 214);
-
-  --def-font-size: 1.6rem;
-  --def-font-size-small: 1.4rem;
-  --def-font-size-large: 1.8rem;
-
-  --def-border-radius: 0.8rem;
 }
 
 // Темная цветовая схема
@@ -91,6 +93,7 @@
     --def-bg-dark-color: oklch(0.1 0.1 214);
     --def-bg-color: oklch(0.15 0.1 214);
     --def-bg-light-color: oklch(0.2 0.1 214);
+    --def-bg-light-color-hover: oklch(0.2 0.1 214 / 0.8);
     --def-text-color: oklch(0.96 0.1 214);
     --def-text-muted-color: oklch(0.76 0.1 214);
     --def-highlight-color: oklch(0.5 0.2 214);
@@ -99,6 +102,18 @@
   }
 }
 
+:root {
+  --def-font-size: 1.6rem;
+  --def-font-size-small: 1.4rem;
+  --def-font-size-large: 1.8rem;
+
+  --def-border-radius: 0.8rem;
+}
+
 html {
   font-size: 62.5%;
+}
+
+* {
+  line-height: 100%;
 }

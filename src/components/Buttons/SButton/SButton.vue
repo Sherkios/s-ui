@@ -1,19 +1,19 @@
 <template>
   <button class="s-button" :class="buttonClass">
-    <span class="s-button__left" v-if="$slots['left']">
+    <span v-if="$slots['left']" class="s-button__left">
       <slot name="left"></slot>
     </span>
 
     <slot></slot>
 
-    <span class="s-button__right" v-if="$slots['right']">
+    <span v-if="$slots['right']" class="s-button__right">
       <slot name="right"></slot>
     </span>
   </button>
 </template>
 
 <script setup lang="ts">
-import { ISButtonProps } from '@/components/Buttons/interface'
+import { ISButtonProps } from '@/components/Buttons/SButton/interface'
 import { computed } from 'vue'
 
 defineOptions({
@@ -49,7 +49,7 @@ const buttonClass = computed(() => [
   border: 0.1rem solid var(--button-border-color);
   border-radius: var(--button-border-radiues);
 
-  background-color: transparent;
+  background-color: var(--button-background-color);
   color: var(--button-color);
 
   font-size: var(--button-font-size);

@@ -1,0 +1,10 @@
+:root {
+  --input-background-color: var(--bg-light-color, var(--def-bg-light-color));
+  --input-background-color-hover: var(--def-bg-light-color-hover, var(--def-bg-light-color-hover));
+  --input-color: var(--text-color, var(--def-text-color));
+
+  --input-border-color: var(--border-color, var(--def-border-color));
+
+  --input-font-size: var(--font-size, var(--def-font-size));
+  --input-message-font-size: var(--font-size-small, var(--def-font-size-small));
+}
