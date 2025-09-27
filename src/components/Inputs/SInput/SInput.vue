@@ -8,8 +8,8 @@
     <div class="s-input__wrapper">
       <!-- Назначаем все переданные атрибуты в инпут кроме класса -->
       <input
-        ref="input"
         v-bind="{ ...props, ...$attrs }"
+        ref="input"
         v-model="model"
         class="s-input__input"
         :type="typeInput"
@@ -37,6 +37,7 @@ import { computed, InputHTMLAttributes, nextTick, ref, useAttrs, useTemplateRef,
 defineOptions({
   name: 'SInput',
   // Отключаем наследование атрибутов
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<ISInputProps>(), {

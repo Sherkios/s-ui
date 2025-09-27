@@ -28,7 +28,9 @@ export const Primary: Story = {
     setup: () => ({ args }),
     template: '<SInput v-bind="args" />',
   }),
-  args: {},
+  args: {
+    id: 'string',
+  },
 }
 
 export const WithError: Story = {
@@ -60,5 +62,6 @@ export const Number: Story = {
   }),
   args: {
     type: 'number',
+    placeholder: 'Введите число',
   },
 }
