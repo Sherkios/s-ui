@@ -1,6 +1,6 @@
 <template>
   <!-- Класс навешиваем корню компонента -->
-  <label class="s-input" :class="[...labelClass, $attrs.class]" v-bind="[$attrs.style]">
+  <label class="s-input" :class="labelClass">
     <p v-if="$slots['title']" class="s-input__title">
       <slot name="title" />
     </p>
@@ -8,7 +8,7 @@
     <div class="s-input__wrapper">
       <!-- Назначаем все переданные атрибуты в инпут кроме класса -->
       <input
-        v-bind="{ ...props, ...$attrs, class: null, style: null }"
+        v-bind="props"
         ref="input"
         v-model="model"
         class="s-input__input"

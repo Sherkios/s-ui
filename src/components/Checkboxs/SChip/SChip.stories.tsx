@@ -3,6 +3,11 @@ import threeColorsDecorator from '@/decorators/three-colors'
 const meta = {
   component: SChip,
   decorators: [threeColorsDecorator],
+  args: {
+    name: 'test',
+    isError: false,
+    disabled: false,
+  },
 } satisfies Meta<typeof SChip>
 
 export default meta
@@ -15,6 +20,6 @@ export const Default: Story = {
     setup() {
       return { args }
     },
-    template: '<SChip v-bind="args" class="test" style="width:100px" disabled > test </SChip>',
+    template: '<SChip v-bind="args" class="test" style="width:100px"  > test </SChip>',
   }),
 }

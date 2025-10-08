@@ -106,6 +106,15 @@ export default defineConfigWithVueTs(
 
       '@typescript-eslint/no-var-requires': 'off',
     },
+
+    overrides: [
+      {
+        files: ['**/*.d.ts', '**/types.ts', '**/interfaces.ts'],
+        rules: {
+          '@typescript-eslint/no-explicit-any': 'off',
+        },
+      },
+    ],
   },
   skipFormatting,
 )

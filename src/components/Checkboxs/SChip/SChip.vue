@@ -1,7 +1,7 @@
 <template>
-  <label class="chip" :class="[...chipClass, $attrs.class]">
+  <label class="chip" :class="chipClass">
     <slot></slot>
-    <input v-model="model" v-bind="{ ...$attrs, class: null }" class="chip__input" :type />
+    <input v-model="model" v-bind="props" class="chip__input" :type />
   </label>
 </template>
 
@@ -11,11 +11,11 @@ import { computed } from 'vue'
 
 defineOptions({
   name: 'SChip',
-  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<IChipProps>(), {
   type: 'checkbox',
+  disabled: false,
 })
 
 const chipClass = computed(() => [
