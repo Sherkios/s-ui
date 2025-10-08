@@ -1,0 +1,10 @@
+:root {
+  --chip-background-color: var(--bg-color, var(--def-bg-color));
+  --chip-background-color-hover: var(--bg-light-color, var(--def-bg-light-color));
+
+  --chip-color: var(--text-color, var(--def-text-color));
+
+  --chip-border-color: var(--border-color, var(--def-border-color));
+
+  --chip-font-size: var(--font-size, var(--def-font-size));
+}
