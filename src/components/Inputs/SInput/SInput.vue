@@ -311,7 +311,7 @@ defineExpose({
     }
 
     &:focus {
-      border: 0.2rem solid var(--primary-color, var(--def-primary-color));
+      --input-border-color: var(--primary-color, var(--def-primary-color));
     }
   }
 
@@ -335,7 +335,7 @@ defineExpose({
     }
 
     .s-input__input {
-      border: 0.2rem solid var(--danger-color, var(--def-danger-color));
+      --input-border-color: var(--danger-color, var(--def-danger-color));
     }
   }
 
@@ -345,7 +345,7 @@ defineExpose({
     }
 
     .s-input__input {
-      border: 0.2rem solid var(--warning-color, var(--def-warning-color));
+      --input-border-color: var(--warning-color, var(--def-warning-color));
     }
   }
 }
