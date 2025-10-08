@@ -40,6 +40,7 @@ const model = defineModel<boolean>()
 
   border: 0.1rem solid var(--chip-border-color);
   border-radius: 1.2rem;
+  box-shadow: 0 0 0rem var(--chip-border-color);
 
   color: var(--chip-color);
 
@@ -57,6 +58,10 @@ const model = defineModel<boolean>()
     width: 100%;
     height: 100%;
     cursor: pointer;
+
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
   &:hover {
@@ -71,6 +76,17 @@ const model = defineModel<boolean>()
   &_error {
     --chip-color: var(--danger-color, var(--def-danger-color));
     --chip-border-color: var(--danger-color, var(--def-danger-color));
+  }
+  &:has(&__input:active) {
+    box-shadow: 0 0 0.4rem var(--chip-border-color);
+  }
+
+  &:has(&__input:disabled) {
+    --chip-background-color: var(--bg-color, var(--def-bg-color));
+    --chip-border-color: var(--border-color, var(--def-border-color));
+    --chip-color: var(--text-color, var(--def-text-color));
+    box-shadow: none;
+    opacity: 0.5;
   }
 }
 </style>
