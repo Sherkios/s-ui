@@ -39,9 +39,9 @@ const model = defineModel<boolean>()
   background-color: var(--chip-background-color);
 
   border: 0.1rem solid var(--chip-border-color);
-  border-radius: 1.2rem;
-  box-shadow: 0 0 0rem var(--chip-border-color);
+  border-radius: var(--chip-border-radius);
 
+  box-shadow: inset 0 0 0 var(--chip-border-color);
   color: var(--chip-color);
 
   font-size: var(--chip-font-size);
@@ -49,6 +49,19 @@ const model = defineModel<boolean>()
   transition: all 0.2s ease;
 
   cursor: pointer;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--chip-border-radius);
+    box-shadow: 0 0 0rem var(--chip-border-color);
+    transition: all 0.2s ease;
+  }
 
   &__input {
     position: absolute;
@@ -78,15 +91,17 @@ const model = defineModel<boolean>()
     --chip-border-color: var(--danger-color, var(--def-danger-color));
   }
   &:has(&__input:active) {
-    box-shadow: 0 0 0.4rem var(--chip-border-color);
+    &::before {
+      box-shadow: 0 0 0.4rem var(--chip-border-color);
+    }
   }
 
   &:has(&__input:disabled) {
-    --chip-background-color: var(--bg-color, var(--def-bg-color));
-    --chip-border-color: var(--border-color, var(--def-border-color));
-    --chip-color: var(--text-color, var(--def-text-color));
-    box-shadow: none;
     opacity: 0.5;
+
+    &::before {
+      box-shadow: none;
+    }
   }
 }
 </style>

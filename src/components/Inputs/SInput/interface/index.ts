@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from 'vue'
 
-export interface ISInputProps<T = any> {
+export interface ISInputProps {
   color?: 'primary' | 'secondary'
   // Сигнал дла обводки ошибки
   isError?: boolean
@@ -13,7 +13,6 @@ export interface ISInputProps<T = any> {
   autocomplete?: string
   autofocus?: boolean
   capture?: boolean | 'user' | 'environment'
-  checked?: boolean | T[] | Set<T>
   crossorigin?: string
   disabled?: boolean
   enterKeyHint?: 'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send'
